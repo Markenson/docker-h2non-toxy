@@ -15,13 +15,14 @@ admin.manage(proxy)
 proxy
   .forward('https://www.google.com.br')
 
+//50% Gateway timeout 
 proxy
   .poison(toxy.poisons.inject({
           code: 504,
           body: '{"error": "gateway timeout"}',
           headers: {'Content-Type': 'application/json'}
         }))
-  .withRule(toxy.rules.probability(100))
+  .withRule(toxy.rules.probability(50))
 
 
 proxy.all('/*')
